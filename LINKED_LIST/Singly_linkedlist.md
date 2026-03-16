@@ -131,6 +131,35 @@ int main(){
 }
 ```
 
+## Reverse the Linked List
+
+There are two ways:
+
+1.save the data into an array and set back that data in list in reverse order
+
+2.Reverse the Node with the help of three pointer: 
+***previousNode** , ***currentNode** and ***nextNode**
+
+```cpp
+//Reversing the Node
+struct Node* reverseList(struct Node *head)
+{
+    struct Node *prevNode,*currNode,*nextNode;
+    
+    currNode=head;
+    prevNode=nextNode=NULL;
+    
+    while(currNode != NULL){
+        nextNode=currNode->next;
+        currNode->next=prevNode;
+        prevNode=currNode;
+        currNode=nextNode;
+    }
+    
+    return prevNode; //currNode = NULL
+}
+```
+
 ## key Advantage of singly Linked list 
 
 1.Dynamic Size – Can grow or shrink at runtime.
