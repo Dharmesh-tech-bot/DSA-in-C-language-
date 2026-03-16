@@ -34,11 +34,19 @@ You start from the first clue (Head).
 This is exactly how a singly linked list works.
 
 ## Defining a Node
+
 ```cpp
 struct Node{
     int data;
     struct Node* next;
 };
+```
+### using alias name
+```cpp
+typedef struct Node{
+    int data;
+    struct Node *next;
+}Node;
 ```
 ## Creating a Node
 
@@ -52,7 +60,110 @@ struct Node* createNode(int value)
     return temp;
 }
 ```
+# INSERTION operation 
+## Inserting newNode at last of the Linkedlist's Node 
+### Using Return Head pointer
+```cpp
+Node* insertNodeAtEnd(int value, Node *head){
+    Node *newNode = createNode(value);
+    
+    if(head == NULL)
+        return newNode;
 
+    Node *temp = head;
+    while(temp->next != NULL){
+        temp = temp->next;
+    }
+
+    temp->next = newNode;
+    return head;
+}
+
+/* 
+int main(){
+    Node *head = NULL;
+    head = insertNodeAtEnd(10, head);
+    head = insertNodeAtEnd(20, head);
+    head = insertNodeAtEnd(30, head);
+    printList(head);
+    return 0;
+}
+*/
+```
+### Using Pointer to Pointer 
+```cpp
+void insertNodeAtEnd(int value, Node **head){
+    Node *newNode = createNode(value);
+
+    if(*head == NULL){
+        *head = newNode;
+        return;
+    }
+
+    Node *temp = *head;
+
+    while(temp->next != NULL){
+        temp = temp->next;
+    }
+
+    temp->next = newNode;
+}
+
+/*
+int main(){
+    Node *head = NULL;
+    insertNodeAtEnd(10, &head);
+    insertNodeAtEnd(20, &head);
+    insertNodeAtEnd(30, &head);
+    printList(head);
+    return 0;
+}
+*/
+```
+### Using Recursion 
+```cpp
+Node* insertNodeAtEnd(Node *head, int value){
+    
+    if(head == NULL){
+        return createNode(value);
+    }
+
+    head->next = insertNodeAtEnd(head->next, value);
+    return head;
+}
+
+/*
+int main(){
+    Node *head = NULL;
+    head = insertNodeAtEnd(head, 10);
+    head = insertNodeAtEnd(head, 20);
+    head = insertNodeAtEnd(head, 30);
+    printList(head);
+    return 0;
+}
+*/
+
+/*
+void insertNodeAtEnd(Node **head, int value){
+
+    if(*head == NULL){
+        *head = createNode(value);
+        return;
+    }
+
+    insertNodeAtEnd(&((*head)->next), value);
+}
+
+int main(){
+    Node *head = NULL;
+    insertNodeAtEnd(&head, 10);
+    insertNodeAtEnd(&head, 20);
+    insertNodeAtEnd(&head, 30);
+    printList(head);
+    return 0;
+}
+*/
+```
 ## Traversing a list
 
 ```cpp
@@ -171,3 +282,46 @@ struct Node* reverseList(struct Node *head)
 4.Better Memory Utilization – Memory is allocated only when needed.
 
 5.Flexible Structure – Easy to rearrange nodes.
+
+## Disadvantage of Singly Linked list
+
+•It is unidirectional means we can only move forward.
+
+•**O(n) Deletions/Insertions**: If we are given a pointer to a specific node to delete (or insert before), we still have to traverse the list from the head to find the previous node. This takes O(n) time.
+
+•**No reverse traversal**: we cannot easily step backward, which makes operations like reversing the list more complex.
+
+## Reason to need doubly Linked list
+
+•It enables bidirectional traversal and to optimize specific insertion and deletion operations.
+
+•**O(1) Deletions/Insertions**: Because each node has a prev pointer, we instantly know the previous node. This drops the time complexity of deleting that node (or inserting before it) from O(n) to O(1).
+
+•**Two-way movement**: we can seamlessly traverse backward, which is ideal for real-world applications like LRU caches, browser histories, or undo/redo functions.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
