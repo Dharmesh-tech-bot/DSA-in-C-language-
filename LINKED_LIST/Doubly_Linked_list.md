@@ -69,3 +69,20 @@ int main(){
     return 0;
 }
 ```
+
+## OPERATIONS on DLL
+
+| Operation                     | Description                                                                 | Time Complexity |
+|------------------------------|-----------------------------------------------------------------------------|-----------------|
+| Traversal (Forward)          | Visit nodes from head to last using `next` pointer                          | O(n)            |
+| Traversal (Backward)         | Visit nodes from last to head using `prev` pointer                          | O(n)            |
+| Insertion at Beginning       | Add a new node before the head and update pointers                          | O(1)            |
+| Insertion at End             | Add node at the last position (requires traversal if no tail pointer)       | O(n)            |
+| Insertion at End (with tail) | Insert node directly using tail pointer                                     | O(1)            |
+| Insertion at Position        | Insert node at a specific index (requires traversal)                        | O(n)            |
+| Deletion at Beginning        | Remove the head node and update the new head                                | O(1)            |
+| Deletion at End              | Remove last node (requires traversal if no tail pointer)                    | O(n)            |
+| Deletion at End (with tail)  | Remove last node directly using tail pointer                                | O(1)            |
+| Deletion at Position         | Delete node at a given position                                             | O(n)            |
+| Search                       | Find a node with a given value                                              | O(n)            |
+| Update                       | Modify the value of a node after locating it                                | O(n)            |
