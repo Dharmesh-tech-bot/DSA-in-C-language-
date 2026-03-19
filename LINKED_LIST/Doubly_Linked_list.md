@@ -86,3 +86,63 @@ int main(){
 | Deletion at Position         | Delete node at a given position                                             | O(n)            |
 | Search                       | Find a node with a given value                                              | O(n)            |
 | Update                       | Modify the value of a node after locating it                                | O(n)            |
+
+
+
+### INSERTION OPERATION 
+
+```cpp
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct Node{
+    int data;
+    struct Node *next;
+    struct Node *prev;
+}Node;
+
+Node *head,*tail,*newNode; //global declaration 
+
+Node *createNode(int value){
+    newNode=(Node *)malloc(sizeof(Node));
+    newNode->data=value;
+    newNode->prev=NULL;
+    newNode->next=NULL;
+    return newNode;
+}
+
+void insertAtEnd(int value){  //no asterisk due to no return type 
+    newNode=createNode(value);
+    if(head==NULL){
+        head=tail=newNode;
+        return;
+    }
+    //Transversing not required 
+    tail->next=newNode;
+    newNode->prev=tail;
+    tail=newNode;
+}
+
+void printList(){
+    Node *temp=head;
+    while(temp != NULL){
+        printf("%d->",temp->data);
+        temp=temp->next;
+    }
+    printf("NULL");
+}
+
+int main(){
+    head=tail=newNode=NULL;
+    insertAtEnd(10);
+    insertAtEnd(20);
+    insertAtEnd(30);
+    printList();
+    return 0;
+}
+```
+
+
+
+
+
