@@ -33,9 +33,9 @@ typedef struct Node{
     struct Node *next;
     struct Node *prev;
 }Node;
-Node *head=NULL;
-Node *temp=NULL;
+Node *head,*temp;
 void create(){
+    head=temp=NULL;
     int choice=1;
     while(choice){
         Node *newNode=(Node *)malloc(sizeof(Node));
