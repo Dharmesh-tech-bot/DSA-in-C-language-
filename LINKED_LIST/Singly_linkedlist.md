@@ -190,7 +190,66 @@ void lengthOfList(struct Node *head){
     printf("\nLength of the Linkedlist is %d.",count);
 }
 ```
-# Implementation of singly LL
+#Implementation of SLL by taking User Input
+```cpp
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node{
+    int data;
+    struct Node *next;
+};
+struct Node *head,*tail;
+
+void createSLL(){
+    head=tail=NULL;
+    int choice=1;
+    while(choice){
+        struct Node *newNode=(struct Node *)malloc(sizeof(struct Node));
+        if(newNode==NULL){
+            printf("Memory allocation failed\n");
+            exit(1);
+        }
+        printf("\nEnter data: ");
+        scanf("%d",&newNode->data);
+        newNode->next=NULL;   //optional
+        
+        if(head==NULL){
+            head=tail=newNode;
+        }else{
+            tail->next=newNode;
+            tail=newNode;
+        }
+        
+        printf("Do you want to add Node(0/1): ");
+        scanf("%d",&choice);
+        
+    }
+}
+
+void printList(){
+    struct Node *temp=head;
+    while(temp != NULL){
+        printf("Node Address: %p | Data: %d | Next: %p\n", temp, temp->data, temp->next);
+        temp=temp->next;
+    }
+}
+
+int main(){
+    createSLL();
+    
+    printf("\nLinked List Details:\n");
+    printList();
+
+    printf("\nHead Address: %p", head);
+    printf("\nTail Address: %p\n", tail);
+    printf("%p",tail->next);
+    return 0;
+}
+
+```
+
+# Implementation of SLL by message passing
 
 ```cpp
 #include <stdio.h>
