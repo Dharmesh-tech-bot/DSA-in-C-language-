@@ -330,6 +330,120 @@ struct Node* reverseList(struct Node *head)
 }
 ```
 
+# INSERTION operation on SLL
+```cpp
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node{
+    int data;
+    struct Node *next;
+};
+struct Node *head,*tail;
+
+struct Node* createNode(int value)
+{
+    struct Node *newNode=(struct Node *)malloc(sizeof(struct Node));
+    newNode->data=value;
+    newNode->next=NULL;
+    return newNode;
+}
+
+void insertAtbeg(int value){
+    struct Node *insertNode=createNode(value);
+    if(head==NULL){
+        head=tail=insertNode;
+    }else{
+        insertNode->next=head;
+        head=insertNode;
+    }
+}
+
+void insertAtEnd(int value){
+    struct Node *insertNode=createNode(value);
+    if(head==NULL){
+        head=tail=insertNode;
+    }else{
+        tail->next=insertNode;
+        tail=insertNode;
+    }
+}
+
+void insertAtPos(int value,int pos)
+{
+    struct Node *temp = head;
+    int length=0;
+    while(temp != NULL){
+        length++;
+        temp=temp->next;
+    }
+    if(pos>length || pos<1){
+        printf("INVALID Position\n");
+    }else{
+        if(pos==1){
+            insertAtbeg(value);
+            free(insertNode);
+        }else if(pos == length+1){
+            insertAtEnd(value);
+            free(insertNode);
+        }
+        else{
+            struct Node *insertNode=createNode(value);
+            temp=head;
+            struct Node *prev=NULL;
+            while(--pos){
+                prev=temp;
+                temp=temp->next;
+            }
+            insertNode->next=temp;
+            prev->next=insertNode;
+        }
+    }
+}
+
+
+void printList(){
+    struct Node *temp=head;
+    while(temp != NULL){
+        printf("%d->",temp->data);
+        temp=temp->next;
+    }
+    printf("NULL\n");
+}
+
+int main(){
+    head=tail=NULL;
+    insertAtbeg(10);
+    insertAtbeg(20);
+    insertAtbeg(30);
+    insertAtbeg(40);
+    printList();
+    insertAtEnd(20);
+    printList();
+    insertAtPos(60,3);
+    printList();
+    insertAtPos(70,1);
+    printList();
+    insertAtPos(90,10);
+    printList();
+    
+    return 0;
+}
+
+/*without using prev
+temp = head;
+
+// Move to (pos-1)th node
+for(int i = 1; i < pos-1; i++){
+    temp = temp->next;
+}
+
+insertNode->next = temp->next;
+temp->next = insertNode;
+*/
+
+```
+
 ## key Advantage of singly Linked list 
 
 1.Dynamic Size – Can grow or shrink at runtime.
