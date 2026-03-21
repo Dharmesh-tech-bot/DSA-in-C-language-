@@ -190,7 +190,7 @@ void lengthOfList(struct Node *head){
     printf("\nLength of the Linkedlist is %d.",count);
 }
 ```
-#Implementation of SLL by taking User Input
+# Implementation of SLL by taking User Input
 ```cpp
 #include <stdio.h>
 #include <stdlib.h>
