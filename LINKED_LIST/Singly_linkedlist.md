@@ -443,12 +443,142 @@ temp->next = insertNode;
 */
 
 ```
+# DELETION operation on SLL
+```cpp
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node{
+    int data;
+  struct Node *next;
+ };
+ struct Node *head,*tail;
+ 
+ struct Node *createNode(int value){
+   struct Node *newNode=(struct Node*)malloc(sizeof(struct Node));
+   newNode->data=value;
+   newNode->next=NULL;
+   return newNode;
+ }
+ 
+ void createSLL( int arr[],int size){
+   for(int i=0;i<size;i++){
+     struct Node *insertNode=createNode(arr[i]);
+     if(head==NULL){
+       head=tail=insertNode;
+     }else{
+     tail->next=insertNode;
+     tail=insertNode;
+   }
+ }
+ }
+ 
+ void delNodeAtBeg(){
+   //every time i forget to handle base case
+   if(head == NULL) return;
+
+   struct Node *temp = head;
+   head = head->next;
+
+   if(head == NULL)
+       tail = NULL; //remember to update
+
+   free(temp);
+}
+
+ 
+ void delNodeAtEnd(){
+   if(head == NULL) return;
+
+   // only one node
+   if(head->next == NULL){
+       free(head);
+       head = tail = NULL;
+       return;
+   }
+
+   struct Node *temp = head;
+
+   while(temp->next->next){
+       temp = temp->next;
+   }
+
+   // temp is second last node
+   free(temp->next);     
+   temp->next = NULL;
+   tail = temp;          // update tail
+}
+   
+   
+   
+void delNodeAtPos(int pos){
+  //remember to handle cases
+  int length = 0;
+  struct Node *temp = head;
+
+  while(temp){
+    length++;
+    temp = temp->next;
+  }
+
+  if(pos <= 0 || pos > length){
+    printf("INVALID position\n");
+    return;
+  }
+
+  if(pos == 1){
+    delNodeAtBeg();
+  }
+  else if(pos == length){
+    delNodeAtEnd();
+  }
+  else{
+    temp = head;
+    for(int i = 1; i < pos - 1; i++){
+        temp = temp->next;
+    }
+
+    struct Node *Del = temp->next;
+    temp->next = Del->next;
+    free(Del);
+  }
+} 
+  
+ void display(){
+   struct Node *temp=head; 
+   while(temp){
+     printf("%d->",temp->data);
+     temp=temp->next;
+   }
+   printf("NULL\n");
+ }
+   int main(){
+     head=tail=NULL;
+     int arr[]={1,2,3,4,5};
+     createSLL(arr,5);
+     display();
+     delNodeAtBeg();
+     display();
+     delNodeAtEnd();
+     display();
+     createSLL(arr,5);
+     display();
+     delNodeAtPos(5);
+     display();
+     delNodeAtPos(1);
+     display();
+     delNodeAtPos(3);
+     display();
+     return 0;
+   }
+     
+```
 
 ## key Advantage of singly Linked list 
 
 1.Dynamic Size – Can grow or shrink at runtime.
 
-2.Efficient Insertion/Deletion –No shifting of elements like arrays.
+2.Efficient Insertion/Deletion – No shifting of elements like arrays.
 
 3.Non-contiguous Memory – Nodes can be stored anywhere in memory.
 
