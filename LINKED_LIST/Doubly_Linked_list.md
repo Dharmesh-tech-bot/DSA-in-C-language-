@@ -141,7 +141,143 @@ int main(){
     return 0;
 }
 ```
+### DELETION OPERATION 
+```cpp
+#include <stdio.h>
+#include <stdlib.h>
 
+struct Node{
+  int data;
+  struct Node *next;
+  struct Node *prev;
+  
+ };
+ struct Node *head,*tail;
+ 
+ struct Node *createNode(int value){
+   struct Node *newNode=(struct Node*)malloc(sizeof(struct Node));
+   newNode->data=value;
+   newNode->next=NULL;
+   newNode->prev=NULL;
+   return newNode;
+ }
+ 
+void createSLL(int arr[], int size){
+   head = tail = NULL;   // important fix
+
+   for(int i = 0; i < size; i++){
+     struct Node *insertNode = createNode(arr[i]);
+     if(head == NULL){
+       head = tail = insertNode;
+     }else{
+       tail->next = insertNode;
+       insertNode->prev = tail;
+       tail = insertNode;
+     }
+   }
+}
+
+void delNodeAtBeg(){
+  if(head==NULL) return;
+  
+  //only one Node
+  if(head->next==NULL){
+    free(head);
+    head=tail=NULL;
+    return;
+  }
+  
+  struct Node *temp=head;
+  head->next->prev=NULL;
+  head=head->next;
+  free(temp);
+} 
+  
+void delNodeAtEnd(){
+  if(head == NULL) return;
+
+  if(head->next == NULL){
+    free(head);
+    head = tail = NULL;
+    return;
+  }
+
+  struct Node *temp = tail;
+
+  tail = tail->prev;
+  tail->next = NULL;
+
+  free(temp);
+}
+    
+void delNodeAtPos(int pos){
+  if(head == NULL) return;
+
+  int length = 0;
+  struct Node *temp = head;
+
+  while(temp){
+    length++;
+    temp = temp->next;
+  }
+
+  if(pos <= 0 || pos > length){
+    printf("Invalid position\n");
+    return;
+  }
+
+  // Case 1: delete first node
+  if(pos == 1){
+    delNodeAtBeg();
+    return;
+  }
+
+  // Case 2: delete last node
+  if(pos == length){
+    delNodeAtEnd();
+    return;
+  }
+
+  // Case 3: delete middle node
+  temp = head;
+  for(int i = 1; i < pos; i++){
+    temp = temp->next;
+  }
+
+  temp->prev->next = temp->next;
+  temp->next->prev = temp->prev;
+
+  free(temp);
+}
+
+ void display(){
+   struct Node *temp=head; 
+   while(temp){
+     printf("%d<->",temp->data);
+     temp=temp->next;
+   }
+   printf("NULL\n");
+ }
+
+int main(){
+  head=tail=NULL;
+  int arr[]={1,2,3,4,5};
+  createSLL(arr,5);
+  display();
+  delNodeAtBeg();
+  display();
+  delNodeAtEnd();
+  display();
+  createSLL(arr,5);
+  display();
+  delNodeAtPos(5);
+  display();
+  delNodeAtEnd();
+  display();
+  return 0;
+}
+
+```
 
 
 
